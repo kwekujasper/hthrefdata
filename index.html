@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTH Referral Report 2025 - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Sidebar Overlay -->
+        <div class="sidebar-overlay no-print" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar no-print">
+            <div class="sidebar-header">
+                <h2>HTH Report</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#overview">Overview & Annual</a></li>
+                    <li><a href="#monthly">Monthly Trends</a></li>
+                    <li><a href="#risk">Risk Analysis</a></li>
+                    <li><a href="#dow">Day of Week</a></li>
+                    <li><a href="#best-worst">Best & Worst Weeks</a></li>
+                    <li><a href="#mom">MoM Trend</a></li>
+                    <li><a href="#" class="btn-export" onclick="window.print(); return false;">Export PDF</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header no-print">
+                <button class="hamburger-btn" id="mobileMenuBtn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="header-title">
+                    <h1>Referral Data Dashboard - 2025</h1>
+                    <p>Modern analytical overview of HTH referral trends and volumes.</p>
+                </div>
+                <div class="header-badges">
+                    <span class="badge-internal">2025 Unpublished Referral Data, HTH Accident and Emergency</span>
+                </div>
+            </header>
+
+            <div class="print-header">
+                <h1>HTH Referral Report 2025</h1>
+                <p>Data Dashboard & Publication Analysis</p>
+                <div class="print-badge"><strong>Source:</strong> 2025 UNPUBLISHED REFERRAL DATA, HTH ACCIDENT AND
+                    EMERGENCY</div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid" id="overview">
+
+                <div class="chart-card full-width">
+                    <div class="chart-header">
+                        <h3>Monthly Referral Totals</h3>
+                        <p>Total volume of referrals analyzed by month</p>
+                    </div>
+                    <div class="chart-image-wrap">
+                        <canvas id="monthlyTotalsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Annual Overview</h3>
+                        <p id="annualOverviewText">Distribution calculated from 2025 raw data</p>
+                    </div>
+                    <div class="chart-image-wrap">
+                        <canvas id="annualDonutChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card" id="risk">
+                    <div class="chart-header">
+                        <h3>Risk Analysis</h3>
+                        <p>Referral risk profile breakdown (Months > 60% Not Called)</p>
+                    </div>
+                    <div class="chart-image-wrap">
+                        <canvas id="riskChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card full-width page-break-after" id="monthly">
+                    <div class="chart-header">
+                        <h3>Monthly Rate Comparison</h3>
+                        <p>Percentage of referrals that were Called vs Didn't Call</p>
+                    </div>
+                    <div class="chart-image-wrap">
+                        <canvas id="monthlyRateChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card full-width">
+                    <div class="chart-header">
+                        <h3>Monthly Bar Trends</h3>
+                        <p>Volume comparison across months</p>
+                    </div>
+                    <div class="chart-image-wrap">
+                        <canvas id="monthlyBarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card full-width page-break-after">
+                    <div class="chart-header">
+                        <h3>Quarterly Summary</h3>
+                        <p>Performance aggregated by quarter</p>
+                    </div>
+                    <div class="chart-image-wrap">
+                        <canvas id="quarterlyChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card full-width" id="dow">
+                    <div class="chart-header">
+                        <h3>Day of Week (DOW) Pattern</h3>
+                        <p>Distribution pattern by day of week</p>
+                    </div>
+                    <div class="chart-image-wrap">
+                        <canvas id="dowChart"></canvas>
+                    </div>
+                    <div class="data-table-wrap" id="dowTableContainer"></div>
+                </div>
+
+                <div class="chart-card full-width page-break-after">
+                    <div class="chart-header">
+                        <h3>Weekly Stacked Volumes</h3>
+                        <p>Detailed weekly referral distribution</p>
+                    </div>
+                    <div class="chart-image-wrap">
+                        <canvas id="weeklyStackedChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card full-width page-break-after" id="best-worst">
+                    <div class="chart-header">
+                        <h3>Best vs Worst Performing Weeks</h3>
+                        <p>Comparing highest and lowest performance periods</p>
+                    </div>
+                    <div class="chart-image-wrap">
+                        <canvas id="bestWorstChart"></canvas>
+                    </div>
+                    <div class="data-table-wrap" id="bestWorstTableContainer"></div>
+                </div>
+
+                <div class="chart-card full-width page-break-after" id="mom">
+                    <div class="chart-header">
+                        <h3>Month-over-Month (MoM) Trend</h3>
+                        <p>Growth pacing and directional trends</p>
+                    </div>
+                    <div class="chart-image-wrap">
+                        <canvas id="momTrendChart"></canvas>
+                    </div>
+                    <div class="data-table-wrap" id="momTableContainer"></div>
+                </div>
+
+            </div>
+
+            <footer class="report-footer">
+                <p class="source-tag"><strong>Source:</strong> 2025 Unpublished Referral Data, HTH Accident and
+                    Emergency</p>
+                <p>Collated and presented by <strong>Bright Kwaku Banitsi</strong> and <strong>Bismark
+                        Nyamasekpor</strong></p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Load data and Chart.js initialization -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
